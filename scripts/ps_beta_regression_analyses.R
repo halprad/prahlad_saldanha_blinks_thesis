@@ -69,6 +69,7 @@ for (i in 1:length(referenceConditions)) {
   effectSizeEst       <- fixedExplainedVar / (1-fixedExplainedVar)
   
   # Extract other useful information:
+  intercept           <- regModelSummary[["coefficients"]][["cond"]][1,1]
   totalExplainedVar   <- as.numeric(fixedAndRandVars$R2_conditional)
   intraClassCorrs     <- icc(betaRegModel)
   adjustedIcc         <- intraClassCorrs$ICC_adjusted
@@ -86,6 +87,7 @@ for (i in 1:length(referenceConditions)) {
   # Store the results:
   currResults <- data.frame(Reference     = referenceConditions[i], 
                             Effect        = effectConditions[i],
+                            Intercept     = intercept,
                             B1            = slope,
                             pVal_OneSided = effectPVal,
                             f2            = effectSizeEst,
@@ -136,6 +138,7 @@ for (i in 1:length(referenceConditions)) {
   effectSizeEst       <- fixedExplainedVar / (1-fixedExplainedVar)
   
   # Extract other useful information:
+  intercept           <- regModelSummary[["coefficients"]][["cond"]][1,1]
   totalExplainedVar   <- as.numeric(fixedAndRandVars$R2_conditional)
   intraClassCorrs     <- icc(betaRegModel)
   adjustedIcc         <- intraClassCorrs$ICC_adjusted
@@ -153,6 +156,7 @@ for (i in 1:length(referenceConditions)) {
   # Store the results:
   currResults <- data.frame(Reference     = referenceConditions[i], 
                             Effect        = effectConditions[i],
+                            Intercept     = intercept,
                             B1            = slope,
                             pVal_OneSided = effectPVal,
                             f2            = effectSizeEst,

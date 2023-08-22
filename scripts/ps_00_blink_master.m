@@ -489,6 +489,28 @@ ps_13_do_binomial_tests(...
 % Clear all variables defined in this section:
 clearvars('-except', keepVars{:});
 
+%% 2-f Calculate listener blink rates: ------------------------------------
+
+% Info for the function:
+CONDITION_TYPES = {'AV', 'V', 'A', 'AV-nolips'};
+STIM_KEY_TBL;
+
+% Relevant paths:
+PATHIN_LISTENER_BLINK_EPOCHS = fullfile(PATH_PROCESSED, '06_listener_blink_epochs');
+PATHOUT_RATES                = fullfile(PATH_PROCESSED, '14_listener_blink_rates');
+
+if ~exist(PATHOUT_RATES, "dir")
+    mkdir(PATHOUT_RATES)
+end
+
+% Run the main function:
+ps_14_calculate_listener_blink_rates(...
+    CONDITION_TYPES, STIM_KEY_TBL, ...
+    PATHIN_LISTENER_BLINK_EPOCHS, PATHOUT_RATES);
+
+% Clear all variables defined in this section:
+clearvars('-except', keepVars{:});
+
 % -------------------------------------------------------------------------
 %% ****************** Part 3: Plot results ********************************
 % -------------------------------------------------------------------------
@@ -501,21 +523,21 @@ COND_CONTRASTS_BLINK_PAUSES   = {'V', 'AV'; ...
                                  'AV-nolips', 'AV'};
 COND_CONTRASTS_SYNCHED_BLINKS = {'V', 'AV'; ...
                                  'A', 'AV'};
-HALF_A4_SIZE                  = [21-3.18, (29.7-2.54)/2]; % In cm
+FOUR_FIFTHS_A4_SIZE           = [21-3.18, (29.7-2.54)*(4/5)]; % In cm
 
 % Relevant paths:
 LISTENER_BLINK_PAUSE_PROPORTIONS_PATH = fullfile(PATH_PROCESSED,'07_listener_blink_pause_proportions/');
 SYNCHED_BLINK_PROPORTIONS_PATH        = fullfile(PATH_PROCESSED,'09_synched_blink_proportions/');
-PATHOUT_PLOTS                         = fullfile(PATH_PROCESSED,'14_observed_proportions_plots');
+PATHOUT_PLOTS                         = fullfile(PATH_PROCESSED,'15_observed_proportions_plots');
 
 if ~exist(PATHOUT_PLOTS, 'dir')
     mkdir(PATHOUT_PLOTS);
 end
 
 % Run the main function:
-ps_14_plot_observed_proportions( ...
+ps_15_plot_observed_proportions( ...
     COND_CONTRASTS_BLINK_PAUSES, COND_CONTRASTS_SYNCHED_BLINKS, ...
-    HALF_A4_SIZE,...
+    FOUR_FIFTHS_A4_SIZE,...
     LISTENER_BLINK_PAUSE_PROPORTIONS_PATH, SYNCHED_BLINK_PROPORTIONS_PATH, ...
     PATHOUT_PLOTS);
 
@@ -535,14 +557,14 @@ PATHIN_SPEAKER                  = fullfile(PATH_PROCESSED,'11_speaker_blink_paus
 PATHIN_LISTENER_SHUFFLED        = fullfile(PATH_PROCESSED,'08_shuffled_listener_blink_pause_proportions/');
 PATHIN_SYNCHED_BLINKS_SHUFFLED  = fullfile(PATH_PROCESSED,'10_shuffled_synched_blink_proportions/');
 PATHIN_SPEAKER_SHUFFLED         = fullfile(PATH_PROCESSED,'12_shuffled_speaker_blink_pause_proportions/');
-PATHOUT_PLOTS                   = fullfile(PATH_PROCESSED,'15_individual_shuffled_proportions_plots');
+PATHOUT_PLOTS                   = fullfile(PATH_PROCESSED,'16_individual_shuffled_proportions_plots');
 
 if ~exist(PATHOUT_PLOTS, 'dir')
     mkdir(PATHOUT_PLOTS);
 end
 
 % Run the main function:
-ps_15_plot_shuffled_proportions_4_individuals(...
+ps_16_plot_shuffled_proportions_4_individuals(...
     ALPHA, FOUR_FIFTHS_A4_SIZE, ...
     PATHIN_LISTENER, PATHIN_SYNCHED_BLINKS, PATHIN_SPEAKER, ...
     PATHIN_LISTENER_SHUFFLED, PATHIN_SYNCHED_BLINKS_SHUFFLED, PATHIN_SPEAKER_SHUFFLED,...
@@ -558,16 +580,39 @@ HALF_A4_SIZE                  = [21-3.18, (29.7-2.54)/2]; % In cm
 
 % Relevant paths:
 PATHIN_BINOMIAL_RESULTS  = fullfile(PATH_PROCESSED,'13_binomial_test_results/');
-PATHOUT_PLOT             = fullfile(PATH_PROCESSED,'16_binomial_pie_charts');
+PATHOUT_PLOT             = fullfile(PATH_PROCESSED,'17_binomial_pie_charts');
 
 if ~exist(PATHOUT_PLOT, 'dir')
     mkdir(PATHOUT_PLOT);
 end
 
 % Run the main function:
-ps_16_plot_binomial_pie_charts( ...
+ps_17_plot_binomial_pie_charts( ...
     HALF_A4_SIZE, PATHIN_BINOMIAL_RESULTS, PATHOUT_PLOT);
 
 % Clear all variables defined in this section:
 clearvars('-except', keepVars{:});
 
+%% 3-d Plot the blink rates for visual comparision: -----------------------
+
+% Info for function:
+COND_CONTRASTS                = {'V', 'AV'; ...
+                                 'A', 'AV'; ...
+                                 'AV-nolips', 'AV'};
+FOUR_FIFTHS_A4_SIZE           = [21-3.18, (29.7-2.54)*(4/5)]; % In cm
+
+% Relevant paths:
+PATHIN_RATES  = fullfile(PATH_PROCESSED, '14_listener_blink_rates/');
+PATHOUT_PLOTS = fullfile(PATH_PROCESSED, '18_listener_blink_rate_plots');
+
+if ~exist(PATHOUT_PLOTS, 'dir')
+    mkdir(PATHOUT_PLOTS);
+end
+
+% Run the main function:
+ps_18_plot_blink_rates( ...
+    COND_CONTRASTS, FOUR_FIFTHS_A4_SIZE,...
+    PATHIN_RATES, PATHOUT_PLOTS);
+
+% Clear all variables defined in this section:
+clearvars('-except', keepVars{:});

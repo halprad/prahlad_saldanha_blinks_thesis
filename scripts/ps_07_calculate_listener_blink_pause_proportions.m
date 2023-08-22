@@ -155,5 +155,5 @@ for c = 1:length(conditionsIdx)
     % Count the total number of pauses:
     nPausesTotalVec(c) = length(blinkPausesBool);
 
-end
-end
+end % End of loop
+end % End of local fn
